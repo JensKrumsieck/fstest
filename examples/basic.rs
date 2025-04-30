@@ -1,8 +1,11 @@
-#[allow(dead_code)]
 fn create_file() {
     //writes a file so test would pollute the workspace
     let file = std::fs::File::create("test.txt").unwrap();
     println!("File created: {:?}", file);
+}
+
+fn main() {
+    create_file();
 }
 
 #[cfg(test)]

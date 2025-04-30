@@ -13,5 +13,6 @@ fstest_macro = { path = "fstest_macro" }
 tempfile = "3.19.1"
 git2 = "0.20.1"
 
-[workspace]
-members = ["examples/basic"]
+[[example]]
+name = "basic"
+path = "examples/basic.rs"
