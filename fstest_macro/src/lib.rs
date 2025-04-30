@@ -101,8 +101,9 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
         #vis fn #inner_fn_name(#inputs) {
             #fn_body
         }
-
+        use serial_test::serial;
         #[test]
+        #[serial]
         fn #fn_name() {
             use fstest::create_repo_and_commit;
             use std::fs;

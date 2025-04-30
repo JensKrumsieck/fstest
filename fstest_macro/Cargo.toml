@@ -5,7 +5,7 @@ license = "MIT OR Apache-2.0"
 authors = ["Jens Krumsieck"]
 keywords = ["test", "proc_macro"]
 categories = ["development-tools::testing"]
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 repository = "https://github.com/jenskrumsieck/fstest"
 
@@ -20,4 +20,5 @@ proc-macro2 = "1.0.95"
 
 [dev-dependencies]
 fstest = { path = "../" }
-tempfile = "3.19.1"
+tempfile = "3"
+serial_test = "3"

@@ -24,9 +24,10 @@ fn my_test(tempdir: &std::path::Path) {
 See examples folder for examples.
 
 ## Installation
-Add crate and tempfile to your dev dependencies.
+Add crate and serial_test and tempfile to your dev dependencies.
 ```toml
 [dev-dependencies]
 fstest = "0.1.0"
-tempfile = "3.19.1"
+tempfile = "3"
+serial_test = "3"
 ```
