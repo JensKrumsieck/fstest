@@ -1,4 +1,10 @@
 # fstest
+[![Crates.io Version](https://img.shields.io/crates/v/fstest)
+![Crates.io Total Downloads](https://img.shields.io/crates/d/fstest)](https://crates.io/crates/fstest)
+[![🦀 Continuous Integration](https://github.com/JensKrumsieck/fstest/actions/workflows/ci.yaml/badge.svg)](https://github.com/JensKrumsieck/fstest/actions/workflows/ci.yaml)
+[![Docs.rs](https://img.shields.io/docsrs/fstest/latest)](https://docs.rs/fstest)
+[![License](https://img.shields.io/badge/license-MIT%2FApache-blue.svg)](https://github.com/jenskrumsieck/fstest#license)
+
 `fstest` provides a procedural macro attribute for simplifying integration tests involving
 temporary file system setups and optional Git repository initialization.
 This crate defines the `#[fstest]` macro, which wraps a test function and handles:
