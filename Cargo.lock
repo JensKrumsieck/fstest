@@ -69,7 +69,7 @@ dependencies = [
 
 [[package]]
 name = "fstest"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "fstest_macro",
  "git2",
@@ -79,7 +79,7 @@ dependencies = [
 
 [[package]]
 name = "fstest_macro"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "fstest",
  "proc-macro2",
