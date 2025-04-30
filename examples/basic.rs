@@ -15,24 +15,24 @@ mod tests {
     use std::path::Path;
 
     #[fstest]
-    fn test_create_file(dir: &Path) {
+    fn test_create_file() {
         create_file();
 
-        assert!(dir.join("test.txt").exists(), "File should exist");
+        assert!(Path::new("test.txt").exists(), "File should exist");
     }
 
     #[fstest(repo = true)]
-    fn test_create_file_in_repo(dir: &Path) {
+    fn test_create_file_in_repo() {
         create_file();
 
-        assert!(dir.join("test.txt").exists(), "File should exist");
+        assert!(Path::new("test.txt").exists(), "File should exist");
     }
 
     #[fstest(files = ["examples/example.txt"] )]
-    fn test_create_file_with_files(dir: &Path) {
+    fn test_create_file_with_files() {
         create_file();
 
-        assert!(dir.join("test.txt").exists(), "File should exist");
-        assert!(dir.join("example.txt").exists(), "File should exist");
+        assert!(Path::new("test.txt").exists(), "File should exist");
+        assert!(Path::new("example.txt").exists(), "File should exist");
     }
 }

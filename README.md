@@ -17,7 +17,7 @@ This crate defines the `#[fstest]` macro, which wraps a test function and handle
 ```rust
 use fstest::cmd_test;
 #[cmd_test(repo = true, files = ["tests/data/input.txt", "tests/data/config.toml"])] //arguments are optional!
-fn my_test(tempdir: &std::path::Path) {
+fn my_test() {
     // test code working within `tempdir`
 }
 ```

@@ -68,8 +68,8 @@ impl Parse for FsTestArgs {
 /// use fstest::fstest;
 ///
 /// #[fstest(repo = true, files = ["tests/data/config.toml", "tests/data/input.txt"])]
-/// fn integration_example(tempdir: &std::path::Path) {
-///     let config_path = tempdir.join("config.toml");
+/// fn integration_example() {
+///     let config_path = std::fs::Path::new("config.toml");
 ///     assert!(config_path.exists());
 /// }
 /// ```
@@ -89,18 +89,9 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
 
     let input_fn = parse_macro_input!(item as syn::ItemFn);
     let fn_name = &input_fn.sig.ident;
-    let inner_fn_name = Ident::new(&format!("{}_inner", fn_name), fn_name.span());
-
-    let vis = &input_fn.vis;
-    let attrs = &input_fn.attrs;
-    let inputs = &input_fn.sig.inputs;
     let fn_body = &input_fn.block;
 
     let generated = quote! {
-        #(#attrs)*
-        #vis fn #inner_fn_name(#inputs) {
-            #fn_body
-        }
         #[test]
         #[fstest::serial_test::serial]
         fn #fn_name() {
@@ -121,9 +112,10 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
                 fstest::create_repo_and_commit(tmpdir.path()).expect("Could not create repo");
             }
 
-            #inner_fn_name(tmpdir.path());
+            #fn_body
 
             std::env::set_current_dir(current).expect("Could not set current dir");
+            tmpdir.close().expect("Could not close tempdir");
         }
     };
 
