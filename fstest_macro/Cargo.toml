@@ -17,3 +17,7 @@ proc-macro = true
 quote = "1"
 syn = { version = "2", features = ["full"] }
 proc-macro2 = "1.0.95"
+
+[dev-dependencies]
+fstest = { path = "../" }
+tempfile = "3.19.1"

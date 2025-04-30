@@ -74,9 +74,11 @@ dependencies = [
 name = "fstest_macro"
 version = "0.1.0"
 dependencies = [
+ "fstest",
  "proc-macro2",
  "quote",
  "syn",
+ "tempfile",
 ]
 
 [[package]]
