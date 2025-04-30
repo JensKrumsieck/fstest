@@ -14,4 +14,6 @@ jobs:
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: stable
-      - run: cargo publish --token ${{secrets.CRATES_TOKEN}}
+      - run: |
+          cargo publish -p fstest_macro --token ${{secrets.CRATES_TOKEN}}
+          cargo publish  --token ${{secrets.CRATES_TOKEN}}
