@@ -60,7 +60,7 @@ impl Parse for FsTestArgs {
 /// # Parameters
 ///
 /// - `repo`: `bool` — If `true`, initializes a Git repository in the temp directory before the test.
-/// - `files`: One or more string literals (not a list!) representing relative file paths to copy.
+/// - `files`: `&[&str]` relative file paths to copy.
 ///
 /// # Example
 ///
