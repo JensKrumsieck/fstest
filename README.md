@@ -27,7 +27,7 @@ See examples folder for examples.
 Add crate and serial_test and tempfile to your dev dependencies.
 ```toml
 [dev-dependencies]
-fstest = "0.1.0"
+fstest = "0.2.0"
 tempfile = "3"
 serial_test = "3"
 ```
