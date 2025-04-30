@@ -108,7 +108,7 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
             use fstest::create_repo_and_commit;
             use std::fs;
 
-            let tmpdir = tempfile::tempdir().expect("Could not create tempdir");
+            let tmpdir = fstest::tempfile::tempdir().expect("Could not create tempdir");
             let current = std::env::current_dir().expect("Could not get current dir");
 
             // Copy files to tempdir

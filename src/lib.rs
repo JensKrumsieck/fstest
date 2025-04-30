@@ -17,6 +17,7 @@
 //! }
 //! ```
 pub use serial_test;
+pub use tempfile;
 pub use fstest_macro::fstest;
 
 use git2::{IndexAddOption, Repository};
