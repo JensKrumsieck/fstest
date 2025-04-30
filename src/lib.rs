@@ -8,7 +8,7 @@
 //! - Restoring the original working directory after test execution
 //! ## Usage
 //!
-//! ```ignore
+//! ```rust
 //! use fstest::cmd_test;
 //!
 //! #[cmd_test(repo = true, files = "tests/data/input.txt", "tests/data/config.toml")] //arguments are optional!
