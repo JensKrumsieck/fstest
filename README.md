@@ -18,8 +18,9 @@ fn my_test(tempdir: &std::path::Path) {
 See examples folder for examples.
 
 ## Installation
-Add crate to your dev dependencies.
+Add crate and tempfile to your dev dependencies.
 ```toml
 [dev-dependencies]
 fstest = "0.1.0"
+tempfile = "3.19.1"
 ```

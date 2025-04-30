@@ -1,9 +1,16 @@
 [package]
 name = "fstest_macro"
+description = "Macro implementation for fstest"
+license = "MIT OR Apache-2.0"
+authors = ["Jens Krumsieck"]
+keywords = ["test", "proc_macro"]
+categories = ["testing"]
 version = "0.1.0"
 edition = "2024"
+repository = "https://github.com/jenskrumsieck/fstest"
 
 [lib]
+name = "fstest_macro"
 proc-macro = true
 
 [dependencies]
