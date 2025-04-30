@@ -17,3 +17,6 @@ git2 = "0.20.1"
 [[example]]
 name = "basic"
 path = "examples/basic.rs"
+
+[workspace]
+members = ["fstest_macro", "."]
