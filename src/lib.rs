@@ -16,6 +16,7 @@
 //!     // test code working within `tempdir`
 //! }
 //! ```
+pub use serial_test;
 pub use fstest_macro::fstest;
 
 use git2::{IndexAddOption, Repository};

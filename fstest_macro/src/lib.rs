@@ -101,7 +101,7 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
         #vis fn #inner_fn_name(#inputs) {
             #fn_body
         }
-        use serial_test::serial;
+        use fstest::serial_test::serial;
         #[test]
         #[serial]
         fn #fn_name() {

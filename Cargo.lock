@@ -84,7 +84,6 @@ dependencies = [
  "fstest",
  "proc-macro2",
  "quote",
- "serial_test",
  "syn",
  "tempfile",
 ]

@@ -21,4 +21,3 @@ proc-macro2 = "1.0.95"
 [dev-dependencies]
 fstest = { path = "../" }
 tempfile = "3"
-serial_test = "3"
