@@ -9,7 +9,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-cmd_test_macro = { path = "fstest_macro" }
+fstest_macro = { path = "fstest_macro" }
 tempfile = "3.19.1"
 git2 = "0.20.1"
 

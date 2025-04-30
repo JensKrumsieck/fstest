@@ -8,12 +8,12 @@ use syn::{
 };
 
 #[derive(Default)]
-struct CmdTestArgs {
+struct FsTestArgs {
     pub repo: bool,
     pub files: Vec<String>,
 }
 
-impl Parse for CmdTestArgs {
+impl Parse for FsTestArgs {
     fn parse(input: ParseStream) -> Result<Self, syn::Error> {
         let mut repo = false;
         let mut files = Vec::new();
@@ -34,16 +34,16 @@ impl Parse for CmdTestArgs {
             let _ = input.parse::<Token![,]>();
         }
 
-        Ok(CmdTestArgs { repo, files })
+        Ok(FsTestArgs { repo, files })
     }
 }
 
 #[proc_macro_attribute]
 pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
     let args = if attr.is_empty() {
-        CmdTestArgs::default()
+        FsTestArgs::default()
     } else {
-        parse_macro_input!(attr as CmdTestArgs)
+        parse_macro_input!(attr as FsTestArgs)
     };
     let repo = args.repo;
     let files = args.files;
@@ -69,7 +69,7 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
 
         #[test]
         fn #fn_name() {
-            use cmd_test::create_repo_and_commit;
+            use fstest::create_repo_and_commit;
 
             let tmpdir = tempfile::tempdir().expect("Could not create tempdir");
             let current = std::env::current_dir().expect("Could not get current dir");

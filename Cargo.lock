@@ -6,7 +6,7 @@ version = 4
 name = "basic"
 version = "0.1.0"
 dependencies = [
- "cmd_test",
+ "fstest",
  "tempfile",
 ]
 
@@ -32,24 +32,6 @@ name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
-
-[[package]]
-name = "cmd_test"
-version = "0.1.0"
-dependencies = [
- "cmd_test_macro",
- "git2",
- "tempfile",
-]
-
-[[package]]
-name = "cmd_test_macro"
-version = "0.1.0"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
-]
 
 [[package]]
 name = "displaydoc"
@@ -85,6 +67,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e13624c2627564efccf4934284bdd98cbaa14e79b0b5a141218e507b3a823456"
 dependencies = [
  "percent-encoding",
+]
+
+[[package]]
+name = "fstest"
+version = "0.1.0"
+dependencies = [
+ "fstest_macro",
+ "git2",
+ "tempfile",
+]
+
+[[package]]
+name = "fstest_macro"
+version = "0.1.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
