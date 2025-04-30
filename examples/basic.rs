@@ -27,4 +27,12 @@ mod tests {
 
         assert!(dir.join("test.txt").exists(), "File should exist");
     }
+
+    #[fstest(files = ["examples/example.txt"] )]
+    fn test_create_file_with_files(dir: &Path) {
+        create_file();
+
+        assert!(dir.join("test.txt").exists(), "File should exist");
+        assert!(dir.join("example.txt").exists(), "File should exist");
+    }
 }

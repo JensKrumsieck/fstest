@@ -26,8 +26,18 @@ impl Parse for FsTestArgs {
                 let val: LitBool = input.parse()?;
                 repo = val.value();
             } else if ident == "files" {
-                let val: syn::LitStr = input.parse()?;
-                files.push(val.value());
+                let content;
+                syn::bracketed!(content in input);
+                while !content.is_empty() {
+                    let val: syn::LitStr = content.parse()?;
+                    files.push(val.value());
+
+                    if content.peek(Token![,]) {
+                        content.parse::<Token![,]>()?;
+                    } else {
+                        break;
+                    }
+                }
             } else {
                 return Err(syn::Error::new(ident.span(), "Unknown argument"));
             }
@@ -41,7 +51,7 @@ impl Parse for FsTestArgs {
 /// Attribute macro to create file-system-isolated integration tests with optional git repo setup.
 ///
 /// This macro generates a `#[test]` function that:
-/// - Creates a temporary directory 
+/// - Creates a temporary directory
 /// - Optionally initializes a Git repository (via `repo = true`)
 /// - Optionally copies specified files into the temp directory (via `files = "path1", "path2", ...`)
 /// - Invokes the annotated function (renamed with `_inner` suffix) with the temp directory path
@@ -54,10 +64,10 @@ impl Parse for FsTestArgs {
 ///
 /// # Example
 ///
-/// ```ignore
-/// use fstest::cmd_test;
+/// ```rust
+/// use fstest::fstest;
 ///
-/// #[fstest(repo = true, files = "tests/data/config.toml", "tests/data/input.txt")]
+/// #[fstest(repo = true, files = ["tests/data/config.toml", "tests/data/input.txt"])]
 /// fn integration_example(tempdir: &std::path::Path) {
 ///     let config_path = tempdir.join("config.toml");
 ///     assert!(config_path.exists());
@@ -95,6 +105,7 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
         #[test]
         fn #fn_name() {
             use fstest::create_repo_and_commit;
+            use std::fs;
 
             let tmpdir = tempfile::tempdir().expect("Could not create tempdir");
             let current = std::env::current_dir().expect("Could not get current dir");

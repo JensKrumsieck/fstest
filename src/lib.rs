@@ -9,9 +9,9 @@
 //! ## Usage
 //!
 //! ```rust
-//! use fstest::cmd_test;
+//! use fstest::fstest;
 //!
-//! #[cmd_test(repo = true, files = "tests/data/input.txt", "tests/data/config.toml")] //arguments are optional!
+//! #[fstest(repo = true, files = ["tests/data/input.txt", "tests/data/config.toml"])] //arguments are optional!
 //! fn my_test(tempdir: &std::path::Path) {
 //!     // test code working within `tempdir`
 //! }
