@@ -102,12 +102,8 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
             #fn_body
         }
         #[test]
-        #[serial]
+        #[fstest::serial_test::serial]
         fn #fn_name() {
-            use fstest::serial_test::serial;
-            use fstest::create_repo_and_commit;
-            use std::fs;
-
             let tmpdir = fstest::tempfile::tempdir().expect("Could not create tempdir");
             let current = std::env::current_dir().expect("Could not get current dir");
 
@@ -115,14 +111,14 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
             #(
                 let file_path = Path::new(#quoted_files);
                 let target_path = tmpdir.path().join(file_path.file_name().unwrap());
-                fs::copy(file_path, target_path).expect(&format!("Could not copy file {:?}", #quoted_files));
+                std::fs::copy(file_path, target_path).expect(&format!("Could not copy file {:?}", #quoted_files));
             )*
 
             std::env::set_current_dir(&tmpdir).expect("Could not set current dir");
 
             //create repo if needed
             if #repo {
-                create_repo_and_commit(tmpdir.path()).expect("Could not create repo");
+                fstest::create_repo_and_commit(tmpdir.path()).expect("Could not create repo");
             }
 
             #inner_fn_name(tmpdir.path());

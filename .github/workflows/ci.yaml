@@ -25,3 +25,5 @@ jobs:
 
       - name: Run tests
         run: cargo test --verbose --workspace --all-features
+      - name: Run Examples
+        run: cargo test --verbose --examples
