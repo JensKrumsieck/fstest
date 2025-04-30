@@ -38,6 +38,31 @@ impl Parse for FsTestArgs {
     }
 }
 
+/// Attribute macro to create file-system-isolated integration tests with optional git repo setup.
+///
+/// This macro generates a `#[test]` function that:
+/// - Creates a temporary directory 
+/// - Optionally initializes a Git repository (via `repo = true`)
+/// - Optionally copies specified files into the temp directory (via `files = "path1", "path2", ...`)
+/// - Invokes the annotated function (renamed with `_inner` suffix) with the temp directory path
+/// - Resets the working directory after the test
+///
+/// # Parameters
+///
+/// - `repo`: `bool` — If `true`, initializes a Git repository in the temp directory before the test.
+/// - `files`: One or more string literals (not a list!) representing relative file paths to copy.
+///
+/// # Example
+///
+/// ```ignore
+/// use fstest::cmd_test;
+///
+/// #[fstest(repo = true, files = "tests/data/config.toml", "tests/data/input.txt")]
+/// fn integration_example(tempdir: &std::path::Path) {
+///     let config_path = tempdir.join("config.toml");
+///     assert!(config_path.exists());
+/// }
+/// ```
 #[proc_macro_attribute]
 pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
     let args = if attr.is_empty() {
