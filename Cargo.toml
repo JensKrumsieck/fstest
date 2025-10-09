@@ -10,7 +10,7 @@ edition = "2024"
 repository = "https://github.com/jenskrumsieck/fstest"
 
 [dependencies]
-fstest_macro = { version = "0.2.4", path = "fstest_macro" }
+fstest_macro = { version = "0.3.0", path = "fstest_macro" }
 tempfile = "3"
 serial_test = "3"
 git2 = "0.20"
