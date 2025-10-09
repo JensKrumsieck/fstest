@@ -95,8 +95,13 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
         #[test]
         #[fstest::serial_test::serial]
         fn #fn_name() {
+            // ensure we start from a safe directory
+            let safe_start_dir = std::env::current_dir()
+                .unwrap_or_else(|_| std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")));
+            let _ = std::env::set_current_dir(&safe_start_dir);
+
+            let current = std::env::current_dir().expect("Could not get current dir");            
             let tmpdir = fstest::tempfile::tempdir().expect("Could not create tempdir");
-            let current = std::env::current_dir().expect("Could not get current dir");
 
             // Copy files to tempdir
             #(
@@ -114,8 +119,8 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
 
             #fn_body
 
+            let _guard = &tmpdir;
             std::env::set_current_dir(current).expect("Could not set current dir");
-            tmpdir.close().expect("Could not close tempdir");
         }
     };
 
