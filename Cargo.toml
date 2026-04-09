@@ -13,7 +13,10 @@ repository = "https://github.com/jenskrumsieck/fstest"
 fstest_macro = { version = "0.4.0", path = "fstest_macro" }
 tempfile = "3"
 serial_test = "3"
-git2 = "0.20"
+git2 = "0.20.4"
+
+[dev-dependencies]
+tokio = { version = "1.51.0", features = ["full"] }
 
 [[example]]
 name = "basic"

@@ -11,15 +11,20 @@
 //! ```rust
 //! use fstest::fstest;
 //! use std::path::Path;
-//! 
+//!
 //! #[fstest(repo = true, files = ["tests/data/input.txt", "tests/data/config.toml"])]
 //! fn my_test(tempdir: &Path) {
 //!     // test code working within `tempdir`
 //! }
+//!
+//! #[fstest(repo = true, tokio = true, files = ["tests/data/input.txt", "tests/data/config.toml"])]
+//! async fn my_test(tempdir: &Path) {
+//!     // test code working within `tempdir`
+//! }
 //! ```
+pub use fstest_macro::fstest;
 pub use serial_test;
 pub use tempfile;
-pub use fstest_macro::fstest;
 
 use git2::{IndexAddOption, Repository};
 use std::{iter, path::Path};

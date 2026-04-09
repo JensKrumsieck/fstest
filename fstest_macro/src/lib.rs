@@ -78,6 +78,7 @@ impl Parse for FsTestArgs {
 ///     assert!(config_path.exists());
 /// }
 /// ```
+///
 #[proc_macro_attribute]
 pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
     let args = if attr.is_empty() {
@@ -103,10 +104,16 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
         quote! { #[test] }
     };
 
+    let async_kw = if tokio {
+        quote! { async }
+    } else {
+        quote! {}
+    };
+
     let generated = quote! {
         #test_attr
         #[fstest::serial_test::serial]
-        fn #fn_name() {
+        #async_kw fn #fn_name() {
             // ensure we start from a safe directory
             let safe_start_dir = std::env::current_dir()
                 .unwrap_or_else(|_| std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")));
