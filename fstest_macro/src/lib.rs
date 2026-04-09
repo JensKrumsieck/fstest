@@ -10,12 +10,14 @@ use syn::{
 #[derive(Default)]
 struct FsTestArgs {
     pub repo: bool,
+    pub tokio: bool,
     pub files: Vec<String>,
 }
 
 impl Parse for FsTestArgs {
     fn parse(input: ParseStream) -> Result<Self, syn::Error> {
         let mut repo = false;
+        let mut tokio = false;
         let mut files = Vec::new();
 
         while !input.is_empty() {
@@ -25,6 +27,9 @@ impl Parse for FsTestArgs {
             if ident == "repo" {
                 let val: LitBool = input.parse()?;
                 repo = val.value();
+            } else if ident == "tokio" {
+                let val: LitBool = input.parse()?;
+                tokio = val.value();
             } else if ident == "files" {
                 let content;
                 syn::bracketed!(content in input);
@@ -44,7 +49,7 @@ impl Parse for FsTestArgs {
             let _ = input.parse::<Token![,]>();
         }
 
-        Ok(FsTestArgs { repo, files })
+        Ok(FsTestArgs { repo, tokio, files })
     }
 }
 
@@ -81,6 +86,7 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
         parse_macro_input!(attr as FsTestArgs)
     };
     let repo = args.repo;
+    let tokio = args.tokio;
     let files = args.files;
     let quoted_files = files.iter().map(|file| {
         let file_str = syn::LitStr::new(file, Span::call_site());
@@ -92,7 +98,11 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
     let fn_body = &input_fn.block;
 
     let generated = quote! {
-        #[test]
+        if #tokio {
+            #[tokio::test]
+        } else {
+            #[test]
+        }
         #[fstest::serial_test::serial]
         fn #fn_name() {
             // ensure we start from a safe directory
@@ -100,7 +110,7 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
                 .unwrap_or_else(|_| std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")));
             let _ = std::env::set_current_dir(&safe_start_dir);
 
-            let current = std::env::current_dir().expect("Could not get current dir");            
+            let current = std::env::current_dir().expect("Could not get current dir");
             let tmpdir = fstest::tempfile::tempdir().expect("Could not create tempdir");
 
             // Copy files to tempdir
