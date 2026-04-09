@@ -10,9 +10,10 @@
 //!
 //! ```rust
 //! use fstest::fstest;
-//!
-//! #[fstest(repo = true, files = ["tests/data/input.txt", "tests/data/config.toml"])] //arguments are optional!
-//! fn my_test(tempdir: &std::path::Path) {
+//! use std::path::Path;
+//! 
+//! #[fstest(repo = true, files = ["tests/data/input.txt", "tests/data/config.toml"])]
+//! fn my_test(tempdir: &Path) {
 //!     // test code working within `tempdir`
 //! }
 //! ```

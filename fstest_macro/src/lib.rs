@@ -97,12 +97,14 @@ pub fn fstest(attr: TokenStream, item: TokenStream) -> TokenStream {
     let fn_name = &input_fn.sig.ident;
     let fn_body = &input_fn.block;
 
+    let test_attr = if tokio {
+        quote! { #[tokio::test] }
+    } else {
+        quote! { #[test] }
+    };
+
     let generated = quote! {
-        if #tokio {
-            #[tokio::test]
-        } else {
-            #[test]
-        }
+        #test_attr
         #[fstest::serial_test::serial]
         fn #fn_name() {
             // ensure we start from a safe directory
